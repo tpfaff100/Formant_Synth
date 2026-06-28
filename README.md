@@ -87,7 +87,16 @@ Some sample usage:
 <br>
 <br>
 
- Are you astounded yet?  Or am I just easily amused?
+
+Some of the programs also have a way to flip between sine and hybrid word generation mode.
+<br>
+Noteworthy is flex_tts in the hybrid directory:
+<br>
+./flex_tts --start-hybrid "a trip to the market"
+<br>
+./flex_tts --start-sine "a trip to the market"
+
+Are you astounded yet?  Or am I just easily amused?
 
 If you are astounded, don't forget to check out the simpler programs in the 'hybrid' and 'initial_research' folders.  
 
