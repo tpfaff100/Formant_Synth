@@ -1,7 +1,15 @@
 # Formant_Synth
-Research and fun with formant sine wave / cascade resonator 
+Research and fun with formant sine wave / cascade resonator - based on my desire to play with a Yamaha Yamaha's FS1R formant wave gen.
 
-This is a fun project I did that uses formant wave generators.  The sine-based resonators are very simple and are understandably difficult to understand when they produce human speech.  But it's fun.  This project isn't about accurately reproducing human speech but more about thinking about speech musically.
+What if you wanted a Yamaha FS1R's formant wave generation ability but didn't have $2,000 to spend on one?
+Well... as a result of looking at it some both related and unrelated ideas panned out here-
+
+
+This is a fun all-C++ project that uses formant wave generators.  
+
+The sine-based resonators are very simplistic and difficult to understand when they produce human speech.  
+However, they sound musical and fun.
+The project isn't about accurately reproducing human speech but more about thinking about speech musically.
 
 Wave files are included in the project in some places so you can sample the output of the different command-line programs before building them.
 
