@@ -35,6 +35,6 @@ A perfect project for me to play with.
 
 Sample audio file:
 <audio controls>
-  <source src="[[https://github.com/tpfaff100/Formant_Synth](https://github.com/tpfaff100/Formant_Synth/blob/main/hybrid/flexible_output.wav" type="audio/wav">
+  <source src="hybrid/flexible_output.wav" type="audio/wav">
   Your browser does not support the audio element.
 </audio>
