@@ -89,6 +89,8 @@ Some sample usage:
 
  Are you astounded yet?  Or am I just easily amused?
 
-If you are, don't forget to check out the simpler programs in the 'hybrid' and 'initial_research' folders.  They were not dead-ends I just didn't have time to keep going with them.
+If you are astounded, don't forget to check out the simpler programs in the 'hybrid' and 'initial_research' folders.  
+
+The simpler programs were not dead-ends I just didn't have time to keep going with them.
 
 Enjoy.
