@@ -52,22 +52,40 @@ Some sample usage:
 ./fricative2 --alternate-singing "hi there how are you?"
 <br>
 ./fricative2 --sine "hi there"
+<br>
 ./fricative2 --hybrid "hi there"
+<br>
 ./fricative2 --singing "hi there how are you?"
+<br>
 ./fricative2 "aaaabbbb"
+<br>
+<br>
 
 ./filter_tts -filter-singing "hi there"
+<br>
 ./filter_tts --filter-glitch "gee my throat sounds kind of glitchy today"
+<br>
+<br>
 
 ./ringmod_tts "fffffffsssssssssttttttt"
+<br>
 ./ringmod_tts [--filter-sine | --filter-singing | --filter-glitch] "<phrase>"
+<br>
 ./ringmod_tts --filter-sine "why do I sound so strange?"
+<br>
 ./ringmod_tts --filter-singing "why do I sound so strange?"
+<br>
 ./ringmod_tts "hhhoooohhhooo"
+<br>
 ./ringmod_tts "yesyesyesyesyesnonononono"
+<br>
 ./ringmod_tts "ooooeeeeooooeeeeooooeeeeooooeeeeooooooooooooooooeeeeeeeeeeeeeeee"
+<br>
 ./ringmod_tts "fffffffttttttt" 
- ./ringmod_tts "fffffffssssssssstttttttkkkkkkkkkkkkggggggggg"
+<br>
+./ringmod_tts "fffffffssssssssstttttttkkkkkkkkkkkkggggggggg"
+<br>
+<br>
 
  Are you astounded yet?  Or am I just easily amused?
 
