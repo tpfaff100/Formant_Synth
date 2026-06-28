@@ -13,12 +13,15 @@ The project isn't about accurately reproducing human speech but more about think
 
 Wave files are included in the project in some places so you can sample the output of the different command-line programs before building them.
 
-This program is designed for macos but all but the last lines that play the wav files should be portable to Linux easily.
-Specifically, I built them in Monterey/Intel.
+These command-line programs are designed for macos but all but the last lines that play the wav files should be portable to Linux easily.
+Specifically, I built them in Mac OS Monterey on Intel.
 
-Directions for compilation of each file is simpleton.  Just look at the top of each C++ file for compilation and execution instructions.
+Directions for compilation of each file is simple.  
+Just look at the top of each C++ file for compilation and execution instructions.
 
+<bold>
 The more complex and capable software is in the 'final' directory.  
+</bold>
 
 These programs play with may options with voice creation including:
 - Ring modulation
@@ -40,5 +43,32 @@ Check out the attached wave files to see if there is anything that excites you.
 
 Why did I do this?  I am interested in voice production + ring modulation + effects + audio quality destruction.
 A perfect project for me to play with.
+
+
+Some sample usage:
+
+./fricative2 [--hybrid | --sine | --singing | --alternate | --alternate-singing | --glitch-singing | --alternate-glitch]
+./fricative2 --alternate-singing "hi there how are you?"
+./fricative2 --sine "hi there"
+./fricative2 --hybrid "hi there"
+./fricative2 --singing "hi there how are you?"
+./fricative2 "aaaabbbb"
+
+./filter_tts -filter-singing "hi there"
+./filter_tts --filter-glitch "gee my throat sounds kind of glitchy today"
+
+./ringmod_tts "fffffffsssssssssttttttt"
+./ringmod_tts [--filter-sine | --filter-singing | --filter-glitch] "<phrase>"
+./ringmod_tts --filter-sine "why do I sound so strange?"
+./ringmod_tts --filter-singing "why do I sound so strange?"
+./ringmod_tts "hhhoooohhhooo"
+./ringmod_tts "yesyesyesyesyesnonononono"
+./ringmod_tts "ooooeeeeooooeeeeooooeeeeooooeeeeooooooooooooooooeeeeeeeeeeeeeeee"
+./ringmod_tts "fffffffttttttt" 
+ ./ringmod_tts "fffffffssssssssstttttttkkkkkkkkkkkkggggggggg"
+
+ Are you astounded yet?  Or am I just easily amused?
+
+If you are, don't forget to check out the simpler programs in the 'hybrid' and 'initial_research' folders.  They were not dead-ends I just didn't have time to keep going with them.
 
 Enjoy.
