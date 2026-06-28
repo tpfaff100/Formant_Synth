@@ -48,7 +48,9 @@ A perfect project for me to play with.
 Some sample usage:
 
 ./fricative2 [--hybrid | --sine | --singing | --alternate | --alternate-singing | --glitch-singing | --alternate-glitch]
+<br>
 ./fricative2 --alternate-singing "hi there how are you?"
+<br>
 ./fricative2 --sine "hi there"
 ./fricative2 --hybrid "hi there"
 ./fricative2 --singing "hi there how are you?"
