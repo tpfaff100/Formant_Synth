@@ -33,8 +33,4 @@ Check out the attached wave files to see if there is anything that excites you.
 Why did I do this?  I am interested in voice production + ring modulation + effects + audio quality destruction.
 A perfect project for me to play with.
 
-Sample audio file:
-<audio controls>
-  <source src="hybrid/flexible_output.wav" type="audio/wav">
-  Your browser does not support the audio element.
-</audio>
+Enjoy.
