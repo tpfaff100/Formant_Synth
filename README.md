@@ -69,7 +69,7 @@ A perfect project for me to play with.
 <br>
 <br>
 
-./ringmod_tts "fffffffsssssssssttttttt"
+./ringmod_tts "fffffffssssssssstttttttfffffffssssssssstttttttfffffffssssssssstttttttfffffffssssssssstttttttfffffffssssssssstttttttfffffffsssssssssttttttt"
 <br>
 ./ringmod_tts [--filter-sine | --filter-singing | --filter-glitch] "<phrase>"
 <br>
