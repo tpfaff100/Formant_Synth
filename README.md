@@ -61,6 +61,8 @@ A perfect project for me to play with.
 <br>
 ./fricative2 "aaaabbbb"
 <br>
+./fricative2 --sine "hobbahuggahibbahuggahibbahuggahibbahuggahobbahuggahibbahuggahibbahuggahibbahugga"
+<br>
 <br>
 
 ./filter_tts -filter-singing "hi there"
