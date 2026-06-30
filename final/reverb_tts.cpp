@@ -1,8 +1,12 @@
-// clang++ -std=c++20 -O3 reverb_ringmod_tts.cpp -o reverb_tts
-// ./reverb_tts --filter-sine --reverb 0 "quick execution of the six jazz files"
-// ./reverb_tts --filter-singing --reverb 5 "quick execution of the six jazz files"
-// ./reverb_tts --filter-glitch --reverb 9 "quick execution of the six jazz files"
+// clang++ -std=c++20 -O3 reverb_tts.cpp  -o reverb_tts
 //
+// Clean voice with reverb layer but NO ring modulation
+// ./reverb_tts --filter-singing --reverb 6 "commodore sixty four executive"
+//
+// Metallic fading voice with full reverb array active
+// ./reverb_tts --filter-singing --ringmod --reverb 6 "commodore sixty four executive"
+//
+///////////////////////////////////////////////////////////////////////////////////////////
 #include <iostream>
 #include <cmath>
 #include <fstream>
@@ -161,53 +165,39 @@ public:
     }
 };
 
-// --- Algorithmic Schroeder Reverb Components ---
 class CombFilter {
-private:
-    std::vector<double> buffer; int writeIdx; double feedback;
+private: std::vector<double> buffer; int writeIdx; double feedback;
 public:
     CombFilter(int delaySamples, double rvt, double delaySec) {
-        buffer.resize(delaySamples, 0.0); writeIdx = 0;
-        feedback = std::exp(-3.0 * delaySec / rvt); // Calculate feedback factor relative to RT60
+        buffer.resize(delaySamples, 0.0); writeIdx = 0; feedback = std::exp(-3.0 * delaySec / rvt);
     }
     double process(double input) {
-        double output = buffer[writeIdx];
-        buffer[writeIdx] = input + (output * feedback);
-        if (++writeIdx >= buffer.size()) writeIdx = 0;
-        return output;
+        double output = buffer[writeIdx]; buffer[writeIdx] = input + (output * feedback);
+        if (++writeIdx >= buffer.size()) writeIdx = 0; return output;
     }
 };
 
 class AllPassFilter {
-private:
-    std::vector<double> buffer; int writeIdx; double gain;
+private: std::vector<double> buffer; int writeIdx; double gain;
 public:
     AllPassFilter(int delaySamples, double APGain) {
         buffer.resize(delaySamples, 0.0); writeIdx = 0; gain = APGain;
     }
     double process(double input) {
-        double bufOut = buffer[writeIdx];
-        double output = -gain * input + bufOut;
-        buffer[writeIdx] = input + (gain * bufOut);
-        if (++writeIdx >= buffer.size()) writeIdx = 0;
-        return output;
+        double bufOut = buffer[writeIdx]; double output = -gain * input + bufOut; buffer[writeIdx] = input + (gain * bufOut);
+        if (++writeIdx >= buffer.size()) writeIdx = 0; return output;
     }
 };
 
 class SchroederReverb {
-private:
-    std::vector<CombFilter*> combs; std::vector<AllPassFilter*> allpasses; double activeWetMix;
+private: std::vector<CombFilter*> combs; std::vector<AllPassFilter*> allpasses; double activeWetMix;
 public:
-    SchroederReverb() : activeWetMix(0.0) {} 
+    SchroederReverb() : activeWetMix(0.0) {}
     void initialize(double durationSec) {
         clear();
-        if (durationSec <= 0.011) { activeWetMix = 0.0; return; } // Effectively bypass when down at minimum scale
-        activeWetMix = 0.18 + (durationSec * 0.44); // Scale structural wet mix based on length
-        
-        // Prime delays across non-harmonic boundaries to bypass resonance grouping spikes
-        int cDelays[4] = {643, 733, 811, 887}; 
-        int aDelays[2] = {149, 67};
-        
+        if (durationSec <= 0.011) { activeWetMix = 0.0; return; }
+        activeWetMix = 0.18 + (durationSec * 0.44);
+        int cDelays[4] = {643, 733, 811, 887}; int aDelays[2] = {149, 67};
         for(int i = 0; i < 4; ++i) {
             double dSec = (double)cDelays[i] / SAMPLE_RATE;
             combs.push_back(new CombFilter(cDelays[i], durationSec, dSec));
@@ -217,10 +207,8 @@ public:
     }
     double process(double input) {
         if (combs.empty()) return input;
-        double combSum = 0.0;
-        for (auto* c : combs) combSum += c->process(input);
-        double apOut = combSum * 0.25;
-        for (auto* ap : allpasses) apOut = ap->process(apOut);
+        double combSum = 0.0; for (auto* c : combs) combSum += c->process(input);
+        double apOut = combSum * 0.25; for (auto* ap : allpasses) apOut = ap->process(apOut);
         return (input * (1.0 - activeWetMix)) + (apOut * activeWetMix);
     }
     void clear() {
@@ -248,21 +236,22 @@ void write_wav_header(std::ofstream& file, int data_size) {
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
-        std::cout << "Usage: ./reverb_tts [--filter-sine | --filter-singing | --filter-glitch] [--reverb 0-9] \"<phrase>\"\n"; return 1;
+        std::cout << "Usage: ./reverb_tts [--filter-sine | --filter-singing | --filter-glitch] [--ringmod] [--reverb 0-9] \"<phrase>\"\n"; return 1;
     }
     EngineMode selected_mode = MODE_FILTER_SINE; std::string raw_string = ""; int reverbValue = 0;
+    bool enable_ring_mod = false; // Flag to track argument input switch
+
     for(int i = 1; i < argc; ++i) {
         std::string arg = argv[i];
         if (arg == "--filter-sine") selected_mode = MODE_FILTER_SINE;
         else if (arg == "--filter-singing") selected_mode = MODE_FILTER_SINGING;
         else if (arg == "--filter-glitch") selected_mode = MODE_FILTER_GLITCH;
+        else if (arg == "--ringmod") enable_ring_mod = true; // Flag setter
         else if (arg == "--reverb" && i + 1 < argc) { reverbValue = std::atoi(argv[++i]); }
         else if (raw_string.empty()) raw_string = arg;
     }
     if (raw_string.empty()) { std::cout << "[-] Missing token string core text input stream.\n"; return 1; }
     reverbValue = std::clamp(reverbValue, 0, 9);
-    
-    // Linearly map value integers 0-9 to duration seconds spanning [0.01, 0.5]
     double reverbDuration = 0.01 + ((double)reverbValue / 9.0) * (0.5 - 0.01);
 
     std::vector<ScheduledPhoneme> master_stream; std::stringstream ss(raw_string); std::string word; double total_stream_duration = 0.0;
@@ -346,10 +335,13 @@ int main(int argc, char* argv[]) {
             double lpSample = 0.0, hpSample = 0.0; morphFilter.process(raw_sample, 250.0 + filterLfo * 3250.0, 2.2, lpSample, hpSample);
             double filtered = (lpSample * (1.0 - filterLfo)) + (hpSample * filterLfo);
 
-            // Ring Modulation with Adaptive Text Envelope
-            phase_ring_mod += (2.0 * PI * 440.0) / SAMPLE_RATE; if (phase_ring_mod > 2.0 * PI) phase_ring_mod -= 2.0 * PI;
-            double rmEnv = std::exp(-currentTime / time_constant_tau);
-            double coreAudio = (filtered * std::sin(phase_ring_mod) * rmEnv) + (filtered * (1.0 - rmEnv));
+            // Ring Modulation with Conditional Switch logic
+            double coreAudio = filtered;
+            if (enable_ring_mod) {
+                phase_ring_mod += (2.0 * PI * 440.0) / SAMPLE_RATE; if (phase_ring_mod > 2.0 * PI) phase_ring_mod -= 2.0 * PI;
+                double rmEnv = std::exp(-currentTime / time_constant_tau);
+                coreAudio = (filtered * std::sin(phase_ring_mod) * rmEnv) + (filtered * (1.0 - rmEnv));
+            }
 
             // Run sample through the Schroeder Reverb Matrix
             double processed_sample = acousticReverb.process(coreAudio);
@@ -362,17 +354,14 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    // Flush remaining spatial tails into tail frames out beyond the word structure
     int tailSamples = static_cast<int>(reverbDuration * SAMPLE_RATE * 2.5);
     for (int t = 0; t < tailSamples; ++t) {
-        double tail = acousticReverb.process(0.0);
-        tail = std::clamp(tail, -1.0, 1.0);
-        pcm.push_back(static_cast<short>(tail * 32767));
+        double tail = acousticReverb.process(0.0); tail = std::clamp(tail, -1.0, 1.0); pcm.push_back(static_cast<short>(tail * 32767));
     }
 
     std::ofstream file(filename, std::ios::binary); int d_size = pcm.size() * sizeof(short);
     write_wav_header(file, d_size); file.write(reinterpret_cast<const char*>(pcm.data()), d_size); file.close();
-    std::cout << "[+] Rendering complete with " << reverbDuration << "s Schroeder Reverb Tail.\n";
+    std::cout << "[+] Rendering complete. Ringmod condition checked: " << (enable_ring_mod ? "ON" : "OFF") << "\n";
     std::system(("afplay " + filename).c_str()); return 0;
 }
 
