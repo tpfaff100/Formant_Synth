@@ -75,6 +75,8 @@ A perfect project for me to play with.
 <br>
 ./reverb_tts2 --filter-sine  --reverb 5 "hobbahuggahibbahuggahibbahuggahibbahuggahobbahuggahibbahuggahibbahuggahibbahugga"
 <br>
+./reverb_tts2 --filter-sine --reverb 5 "drink drink drink drink drink drink drink drink"
+<br>
 
 ./ringmod_tts "fffffffssssssssstttttttfffffffssssssssstttttttfffffffssssssssstttttttfffffffssssssssstttttttfffffffssssssssstttttttfffffffsssssssssttttttt"
 <br>
