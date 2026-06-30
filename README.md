@@ -77,6 +77,11 @@ A perfect project for me to play with.
 <br>
 ./reverb_tts2 --filter-sine --reverb 5 "drink drink drink drink drink drink drink drink"
 <br>
+<br>
+(reverb_tts3 probably has the most options of any of these programs)
+./reverb_tts3 --filter-glitch --reverb 5 --ringmod 10 "forget it" 
+<br>
+<br>
 
 ./ringmod_tts "fffffffssssssssstttttttfffffffssssssssstttttttfffffffssssssssstttttttfffffffssssssssstttttttfffffffssssssssstttttttfffffffsssssssssttttttt"
 <br>
