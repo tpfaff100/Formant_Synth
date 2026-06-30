@@ -45,8 +45,10 @@ Why did I do this?  I am interested in voice production + ring modulation + effe
 A perfect project for me to play with.
 
 
-Some sample usage:
+<bold>Some sample usage:</bold>
 
+./fricative2 --alternate-singing "woch yor televizun woch yor televizun woch yor televizun woch yor televizun"
+<br>
 ./fricative2 [--hybrid | --sine | --singing | --alternate | --alternate-singing | --glitch-singing | --alternate-glitch]
 <br>
 ./fricative2 --alternate-singing "hi there how are you?"
