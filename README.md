@@ -73,6 +73,7 @@ A perfect project for me to play with.
 
 ./reverb_tts2 --reverb 5 --ringmod --filter-sine "hello there this is ring mod on sine-wave based speech with extended reverb so please try it out"
 <br>
+./reverb_tts2 --filter-sine  --reverb 5 "hobbahuggahibbahuggahibbahuggahibbahuggahobbahuggahibbahuggahibbahuggahibbahugga"
 <br>
 
 ./ringmod_tts "fffffffssssssssstttttttfffffffssssssssstttttttfffffffssssssssstttttttfffffffssssssssstttttttfffffffssssssssstttttttfffffffsssssssssttttttt"
