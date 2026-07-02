@@ -3,7 +3,7 @@
 // ./stereo02 --filter-singing --reverb 20 --pan 5 --haas 35 "fear the update"
 // ./stereo02 --filter-sin --reverb 20 --pan 5 --haas 35 "fear the update"
 // ./stereo02 --filter-glitch --reverb 20 --pan 5 --haas 35 "fear the update"
-//./stereo02 --filter-sine --reverb 20 --pan 1 --haas 35 "protectprotectprotectImustprotectyou"
+// ./stereo02 --filter-sine --reverb 20 --pan 1 --haas 35 "protectprotectprotectImustprotectyou"
 //
 // Supports sine/cosine "stereo" panning, haas 3D stereo effect, reverb, singing, and sine
 ///////////////////////////////////////////////////////////////////////////////////////////////

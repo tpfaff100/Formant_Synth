@@ -47,6 +47,26 @@ A perfect project for me to play with.
 
 <bold>Some sample usage:</bold>
 
+<br>
+<br>
+I think that 'stereo02' has everything except for sine - hybrid wave oscillation...
+<br>
+<br>
+cd stereo
+<br>
+clang++ -std=c++20 -O3 stereo02.cpp -o stereo02
+<br>
+./stereo02 --haas 100 --pan 2 --ringmod 20 --filter-sine "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+./stereo02 --filter-singing --reverb 20 --pan 5 --haas 35 "fear the update"
+./stereo02 --filter-sin --reverb 20 --pan 5 --haas 35 "fear the update"
+./stereo02 --filter-glitch --reverb 20 --pan 5 --haas 35 "fear the update"
+./stereo02 --filter-sine --reverb 20 --pan 1 --haas 35 "protectprotectprotectImustprotectyou"
+<br>
+<br>
+
+cd final
+<br>
+<build as instructed in the files>
 ./fricative2 --alternate-singing "woch yor televizun woch yor televizun woch yor televizun woch yor televizun"
 <br>
 ./fricative2 [--hybrid | --sine | --singing | --alternate | --alternate-singing | --glitch-singing | --alternate-glitch]
