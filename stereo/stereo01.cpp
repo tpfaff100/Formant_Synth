@@ -1,7 +1,9 @@
 // clang++ -std=c++20 -O3 stereo01.cpp -o stereo01
-// ./reverb_tts --filter-glitch --filter-ringmod 6 --reverb 15 --filter-pan 12 "bad pizza"
+// ./stereo01 --filter-glitch --filter-ringmod 6 --reverb 15 --filter-pan 12 "bad pizza"
+// ./stereo01 --ringmod 25 --reverb 20  --filter-pan 100  'bb'
+// ./stereo01 --ringmod 5 --reverb 10  --filter-pan 10  'bad good'
 // this sample uses sin-cos based panning to create a stereo-like effect.
-
+////////////////////////////////////////////////////////////////////////////
 #include <iostream>
 #include <cmath>
 #include <fstream>
