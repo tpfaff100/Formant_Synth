@@ -326,6 +326,9 @@ int main(int argc, char* argv[]) {
     long long global_sample_index = 0; double time_constant_tau = total_stream_duration / 2.2;
 
     for (const auto& scheduled : master_stream) {
+
+
+#if NO_SPACE_DELAY
         if (scheduled.token == " ") {
             int gap = static_cast<int>(0.06 * SAMPLE_RATE);
             for (int s = 0; s < gap; ++s) { 
@@ -337,6 +340,28 @@ int main(int argc, char* argv[]) {
                 global_sample_index++; 
             }
             continue;
+#else
+	if (scheduled.token == " ") {
+	    // Increased from 0.06 to 0.25 seconds for a distinct, rhythmic break
+	    double wordGapDuration = 0.25; 
+	    int gap = static_cast<int>(wordGapDuration * SAMPLE_RATE);
+	    
+	    for (int s = 0; s < gap; ++s) { 
+		// Feed zeros into the reverb so previous trails naturally decay 
+		// without overlapping raw synthetic energy into the next token
+		double outSample = acousticReverb.process(0.0);
+		double leftChan = outSample;
+		double rightChan = enable_haas ? spatialThickener.process(outSample) : outSample;
+		
+		pcm.push_back(static_cast<short>(leftChan * 32767)); 
+		pcm.push_back(static_cast<short>(rightChan * 32767));
+		global_sample_index++; 
+	    }
+	    continue;
+#endif
+
+
+
         }
         if (!PHONEMES.contains(scheduled.token)) continue;
         const auto& ph = PHONEMES[scheduled.token];
